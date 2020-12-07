@@ -1,6 +1,6 @@
 # TRNIDS: Turkish National Identifier Suite
 
-### **TR [ ENG ⇣ ]**
+#### **TR [ ENG ⇣ ]**
 
 ```
 ████████╗██████╗░███╗░░██╗██╗██████╗░░██████╗
@@ -35,10 +35,10 @@ Select an Option!
 
 ### **MERNİS : TRNIDS**
 
-Bu program Merkezi Nüfus İdare Sistemi'ne (MERNIS) öykünen bir yeni yetme.
+Bu program Merkezi Nüfus İdare Sistemi'ne (MERNİS) öykünen bir yeni yetme.
 Bence de komik... :) Özetle; TCNO doğrulaması, geçerli rastgele TCNO üretimi,
 kişinin potansiyel akrabalarını bulma (soyağacı) (tanımadığınız akrabalarınızı
-bulabilir ki baya enteresan oluyor), MERNIS sisteminin dağıtabileceği tüm
+bulabilir ki baya enteresan oluyor), MERNİS sisteminin dağıtabileceği tüm
 geçerli TCNO havuzunu (geçmiş, şimdi, gelecek) üretebilme vb. işlemler
 gerçekleştiriyor.
 
@@ -60,16 +60,16 @@ varmış ki ilk kurulduğu günlerden üyeymişiz! Enteresan!
 
 ### **Program özellikleri ve kodlara dair...**
 
-[![TRNID GitHub](/assets/img/github-icon.png "TRNID GitHub")](https://github.com/nuriacar/trnids)
+[![TRNIDS GitHub](/assets/img/github-icon.png "TRNIDS GitHub")](https://github.com/nuriacar/trnids)
 
 Kaynak Kod Deposu
 {: style="color:gray; font-size: 80%; text-align: left;"}
 
-Bash, Python, Common Lisp ve C ile kodladım. Benim için özel yanı, bilmediğim
-ama öğrenmeye merak saldığım tüm progrmalama dillerini bu programı yazarak
-öğrenmeye çalışıyor olmam. Bash ve C ile başlayıp Python 3'e port ettim,
-ardından Python 3'ten Common Lisp'e port ettim, ardından tekrar Python 3'e
-aktardım. Bakalım zamanla daha hangi dillere evrilecek.
+Bash, Python 3, Common Lisp ve C ile kodladım. Benim için özel yanı,
+bilmediğim ama öğrenmeye merak saldığım tüm progrmalama dillerini bu programı
+yazarak öğrenmeye çalışıyor olmam. Bash ve C ile başlayıp Python 3'e port
+ettim, ardından Python 3'ten Common Lisp'e port ettim, ardından tekrar Python
+3'e aktardım. Bakalım zamanla daha hangi dillere evrilecek.
 
 `[ Bash & C ] => [ Python 3 & C ] => [ Common Lisp ] => [ Python 3 & C ]`
 
@@ -286,7 +286,7 @@ negatif çıkan 10. basamak yüzünden ~900 milyonluk (999999999 - 100000001 =
 
 ---
 
-### **ENG**
+#### **ENG**
 
 ```
 ████████╗██████╗░███╗░░██╗██╗██████╗░░██████╗
@@ -322,15 +322,15 @@ Select an Option!
 ### **MERNİS : TRNIDS**
 
 This program is a newbie imitator of the Central Population Management System
-(MERNIS) of Turkey. I think it's funny too... :) To sum up; TRNID
+(MERNİS) of Turkey. I think it's funny too... :) To sum up, it performs; TRNID
 verification, valid random TRNID generation, finding potential relatives of
 the person (family tree) (finding relatives you do not know, which is quite
 interesting), being able to generate the entire valid TRNID pool (past,
-present, future) that the MERNIS system can distribute, etc. performsi
+present, future) that the MERNİS system can distribute, etc.
 
 ![Do we have bnob?](/assets/img/var-mi-bonbamiz.jpg "Do we have bnob?")
 
-> MERNIS is a project that transfers personal information to electronic
+> MERNİS is a project that transfers personal information to electronic
 > environment and ensures that all changes in personal information are
 > instantly updated from centers scattered all over the country and securely
 > shared over a network.
@@ -344,13 +344,13 @@ Interesting!
 
 ### **About program features and codes...**
 
-[![TRNID GitHub](/assets/img/github-icon.png "TRNID GitHub")](https://github.com/nuriacar/trnids)
+[![TRNIDS GitHub](/assets/img/github-icon.png "TRNIDS GitHub")](https://github.com/nuriacar/trnids)
 
 Source Code Repository
 {: style="color:gray; font-size: 80%; text-align: left;"}
 
-I coded with Bash, Python, Common Lisp and C. The special thing for me is that
-I am trying to learn all programming languages that I do not know but are
+I coded with Bash, Python 3, Common Lisp and C. The special thing for me is
+that I am trying to learn all programming languages that I do not know but are
 curious to learn by writing this program. I started with Bash and C and ported
 to Python 3, then I ported from Python 3 to Common Lisp, then transferred back
 to Python 3. Let's see which languages will be next.
@@ -419,7 +419,7 @@ end of the "**What is TRNID? How is it distributed?**" section below!)
 `5.` Generates a randomly generated valid TRNID for the number of times
 entered.
 
-`6.` Generates all possible TRNID repositories that MERNIS system can
+`6.` Generates all possible TRNID repositories that MERNİS system can
 distribute, saves it to the file. This file is ~11GB in size. In fact, I added
 the LZMA archiver and decoder specific to *nix systems in the program, but I
 did not check and edit it, so it is not active. Maybe I'll edit and activate
@@ -496,7 +496,7 @@ save the day will cause in the future.* **[!]**
 
 [The MERNİS Opening Date: 20.01.2003](https://www.milliyet.com.tr/gundem/mernis-yarin-hizmette-262466)
 
-[The MERNIS Scandal](https://www.milliyet.com.tr/ekonomi/mernis-skandali-181319)
+[The MERNİS Scandal](https://www.milliyet.com.tr/ekonomi/mernis-skandali-181319)
 
 ### **How is it produced?**
 
