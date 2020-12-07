@@ -60,11 +60,6 @@ varmış ki ilk kurulduğu günlerden üyeymişiz! Enteresan!
 
 ### **Program özellikleri ve kodlara dair...**
 
-[![TRNIDS GitHub](/assets/img/github-icon.png "TRNIDS GitHub")](https://github.com/nuriacar/trnids)
-
-Kaynak Kod Deposu
-{: style="color:gray; font-size: 80%; text-align: left;"}
-
 Bash, Python 3, Common Lisp ve C ile kodladım. Benim için özel yanı,
 bilmediğim ama öğrenmeye merak saldığım tüm progrmalama dillerini bu programı
 yazarak öğrenmeye çalışıyor olmam. Bash ve C ile başlayıp Python 3'e port
@@ -344,11 +339,6 @@ these issues, and Turkey were members from the first days it was founded!
 Interesting!
 
 ### **About program features and codes...**
-
-[![TRNIDS GitHub](/assets/img/github-icon.png "TRNIDS GitHub")](https://github.com/nuriacar/trnids)
-
-Source Code Repository
-{: style="color:gray; font-size: 80%; text-align: left;"}
 
 I coded with Bash, Python 3, Common Lisp and C. The special thing for me is
 that I am trying to learn all programming languages that I do not know but are
