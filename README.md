@@ -207,6 +207,7 @@ haberin var mı!) Günü kurtaran çözümler bakalım gelecekte nelere sebep
 olacak.* **[!]**
 
 [MERNİS Hizmete Açılış Tarihi: 20.01.2003](https://www.milliyet.com.tr/gundem/mernis-yarin-hizmette-262466)
+
 [MERNİS Skandalı](https://www.milliyet.com.tr/ekonomi/mernis-skandali-181319)
 
 ### **Nasıl oluşturulur?**
