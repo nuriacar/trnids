@@ -19,7 +19,7 @@ import random
 ###############################################################################
 
 def main_menu():
-    program_ascii_logo = """
+    program_ascii_logo_and_menu = """
 ████████╗██████╗░███╗░░██╗██╗██████╗░░██████╗
 ╚══██╔══╝██╔══██╗████╗░██║██║██╔══██╗██╔════╝
 ░░░██║░░░██████╔╝██╔██╗██║██║██║░░██║╚█████╗░
@@ -30,9 +30,7 @@ def main_menu():
 [ Nuri ACAR ] [ nuriacar.com ]
 
 [ TRNIDS ] [ Turkish National Identifier Suite ] [ v0.1.0 : 20201206203040 ]
-"""
 
-    program_menu = """
 [ Menu ]
 ===============================================================================
 .
@@ -49,12 +47,12 @@ def main_menu():
 """
 
     clear_screen()
-    print("{}{}".format(program_ascii_logo, program_menu))
+    print("{}".format(program_ascii_logo_and_menu))
 
 ###############################################################################
 
 def swtch_main_menu_option(): # Python has not switch case.
-    print("\nSelect an Option!")
+    print("Select an Option!")
     selected_option = get_chck_positive_numeric()
 
     if selected_option == 99:
@@ -957,8 +955,7 @@ def get_date_time():
 
 ###############################################################################
 
-if __name__ == "__main__":
-
+def main():
     ##########
     # Gets time now for elapsed time calculation.
     start_time = time.time() # Returns float.
@@ -968,7 +965,7 @@ if __name__ == "__main__":
     try:
         while True:
             main_menu()
-            while_breaker = swtch_main_menu_option() # 999 Menu Exit.
+            while_breaker = swtch_main_menu_option() # 99 Menu Exit.
             if while_breaker == False:
                 break
     except KeyboardInterrupt: # If ctrl + c pressed while code is running...
@@ -1003,3 +1000,8 @@ if __name__ == "__main__":
             .format(seconds))
 
     ##########
+
+###############################################################################
+
+if __name__ == "__main__":
+    main()
