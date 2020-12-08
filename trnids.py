@@ -3,7 +3,7 @@
 ###############################################################################
 ###############################################################################
 ###############################################################################
-#### TRNID Suite
+## TRNIDS: Turkish National Identifier Suite
 ###############################################################################
 
 import os
@@ -29,10 +29,11 @@ def main_menu():
 
 [ Nuri ACAR ] [ nuriacar.com ]
 
-[ TRNIDS ] [ Turkish National Identifier Suite ]    [ v0.1.0 : 20201206203040 ]"""
-    program_name = "[ TRNIDS ] Turkish National Identifier Suite"
-    program_version = "v0.1.0:20201206203040"
-    program_menu = """[ Menu ]
+[ TRNIDS ] [ Turkish National Identifier Suite ] [ v0.1.0 : 20201206203040 ]
+"""
+
+    program_menu = """
+[ Menu ]
 ===============================================================================
 .
 ... 1. Check NID Validation
@@ -44,12 +45,11 @@ def main_menu():
 
 ... 98. About & Source Code Repository & Version History
 ... 99. Exit
-==============================================================================="""
+===============================================================================
+"""
 
     clear_screen()
-    print("{}".format(program_ascii_logo))
-    # print("{}          [ {} ]".format(program_name, program_version))
-    print("\n{}".format(program_menu))
+    print("{}{}".format(program_ascii_logo, program_menu))
 
 ###############################################################################
 
