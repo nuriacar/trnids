@@ -1,4 +1,4 @@
-# TRNIDS: Turkish National Identifier Suite
+# TRNIDS: TR National Identifier Suite
 
 #### **TR [ ENG ⇣ ]**
 
@@ -12,7 +12,7 @@
 
 [ Nuri ACAR ] [ nuriacar.com ]
 
-[ TRNIDS ] [ Turkish National Identifier Suite ]    [ v0.1.0 : 20201206203040 ]
+[ TRNIDS ] [ TR National Identifier Suite ]    [ v0.1.0 : 20201206203040 ]
 
 [ Menu ]
 ===============================================================================
@@ -294,7 +294,7 @@ negatif çıkan 10. basamak yüzünden ~900 milyonluk (999999999 - 100000001 =
 
 [ Nuri ACAR ] [ nuriacar.com ]
 
-[ TRNIDS ] [ Turkish National Identifier Suite ]    [ v0.1.0 : 20201206203040 ]
+[ TRNIDS ] [ TR National Identifier Suite ]    [ v0.1.0 : 20201206203040 ]
 
 [ Menu ]
 ===============================================================================
