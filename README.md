@@ -42,8 +42,6 @@ akrabalarınızı bulabilir ki baya enteresan oluyor), MERNİS sisteminin
 dağıtabileceği tüm geçerli TCNO havuzunu (geçmiş, şimdi, gelecek) üretebilme
 vb. işlemler gerçekleştiriyor.**
 
-![Var mi bonbamız?](/assets/img/var-mi-bonbamiz.jpg "Var mı bonbamız?")
-
 > MERNİS, [Ahvâl-i
 > şahsiyye](https://islamansiklopedisi.org.tr/ahval-i-sahsiyye) bilgilerini
 > elektronik ortama aktaran ve [ahvâl-i
@@ -323,8 +321,6 @@ TRNID verification, valid random TRNID generation, finding potential relatives
 of the person (family tree) (finding relatives you do not know, which is quite
 interesting), being able to generate the entire valid TRNID pool (past,
 present, future) that the MERNİS system can distribute, etc.**
-
-![Do we have bnob?](/assets/img/var-mi-bonbamiz.jpg "Do we have bnob?")
 
 > MERNİS is a project that transfers personal information to electronic
 > environment and ensures that all changes in personal information are
