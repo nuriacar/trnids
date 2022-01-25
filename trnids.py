@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 ###############################################################################
 ###############################################################################
@@ -6,11 +7,12 @@
 ## TRNIDS: TR National Identifier Suite
 ###############################################################################
 
-import os
-import subprocess
 import datetime
-import time
+import os
 import random
+import subprocess
+import sys
+import time
 
 ###############################################################################
 ###############################################################################
@@ -19,13 +21,14 @@ import random
 ###############################################################################
 
 def main_menu():
+    # https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nuri%20ACAR
     program_ascii_logo_and_menu = """
-████████╗██████╗░███╗░░██╗██╗██████╗░░██████╗
-╚══██╔══╝██╔══██╗████╗░██║██║██╔══██╗██╔════╝
-░░░██║░░░██████╔╝██╔██╗██║██║██║░░██║╚█████╗░
-░░░██║░░░██╔══██╗██║╚████║██║██║░░██║░╚═══██╗
-░░░██║░░░██║░░██║██║░╚███║██║██████╔╝██████╔╝
-░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═════╝░
+████████╗██████╗ ███╗   ██╗██╗██████╗ ███████╗
+╚══██╔══╝██╔══██╗████╗  ██║██║██╔══██╗██╔════╝
+   ██║   ██████╔╝██╔██╗ ██║██║██║  ██║███████╗
+   ██║   ██╔══██╗██║╚██╗██║██║██║  ██║╚════██║
+   ██║   ██║  ██║██║ ╚████║██║██████╔╝███████║
+   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═════╝ ╚══════╝
 
 [ Nuri ACAR ] [ nuriacar.com ]
 
@@ -310,55 +313,106 @@ def wrt_data_history(data):
 ###############################################################################
 
 def get_chck_positive_numeric():
-    # Returns only positive number. If entry not numeric, 0 or negative, 
-    # calls itself till entry become positive.
-    str_numeric_entry = input("\n>>> ") # ...reads user entry.
+    # Attention!
+    # Tail-call optimisation (TCO), tail recursion elemination (TRE) thing!
+    # https://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html
+    # https://neopythonic.blogspot.com/2009/04/final-words-on-tail-calls.html
+    # 20220109233555
+    while True:
+        # Returns only positive number. If entry not numeric, 0 or negative,
+        # loops till entry become positive.
+        str_numeric_entry = input("\n>>> ") # ...reads user entry.
 
-    try:
-        int_numeric_entry = int(str_numeric_entry) # If entry is integer,
-        if int_numeric_entry > 0: # and positive (must)...
-            return int_numeric_entry
-        else: # Else, so not positive...
-            prnt_entry_must_be_positive_number()
+        try:
+            int_numeric_entry = int(str_numeric_entry) # If entry is integer,
+            if int_numeric_entry > 0: # and positive (must)...
+                return int_numeric_entry
+            else: # Else, so not positive...
+                # Do nothing. Just warn before next loop.
+                prnt_entry_must_be_positive_number()
+        except ValueError: # Else, so entry is not integer.
+            # Do nothing. Just warn before next loop.
+            prnt_entry_must_be_numeric()
 
-            # Because of function recall inside itself, value become None.
-            # So, return is important below!
-            # Returns proper value of function call n to function call 1!
-            return get_chck_positive_numeric()
-    except ValueError: # Else, so entry is not integer.
-        prnt_entry_must_be_numeric()
+# # This function is clone of above function is bad because of TCO, TRE!
 
-        # Because of function recall inside itself, value become None.
-        # So, return is important below!
-        # Returns proper value of function call n to function call 1!
-        return get_chck_positive_numeric()
+# def get_chck_positive_numeric():
+#     # Returns only positive number. If entry not numeric, 0 or negative, 
+#     # calls itself till entry become positive.
+#     str_numeric_entry = input("\n>>> ") # ...reads user entry.
+
+#     try:
+#         int_numeric_entry = int(str_numeric_entry) # If entry is integer,
+#         if int_numeric_entry > 0: # and positive (must)...
+#             return int_numeric_entry
+#         else: # Else, so not positive...
+#             prnt_entry_must_be_positive_number()
+
+#             # Because of function recall inside itself, value become None.
+#             # So, return is important below!
+#             # Returns proper value of function call n to function call 1!
+#             return get_chck_positive_numeric()
+#     except ValueError: # Else, so entry is not integer.
+#         prnt_entry_must_be_numeric()
+
+#         # Because of function recall inside itself, value become None.
+#         # So, return is important below!
+#         # Returns proper value of function call n to function call 1!
+#         return get_chck_positive_numeric()
 
 ###############################################################################
 
 def get_check_nid():
-    print("Type All 11 Digits of NID")
-    str_nid_entry = str(get_chck_positive_numeric())
+    while True:
+        print("Type All 11 Digits of NID")
+        str_nid_entry = str(get_chck_positive_numeric())
 
-    if len(str_nid_entry) == 11:
-        nid_entry = int(str_nid_entry)
-        return nid_entry
-    else:
-        prnt_improper_nid_entry()
-        return get_check_nid()
+        if len(str_nid_entry) == 11:
+            nid_entry = int(str_nid_entry)
+            return nid_entry
+        else:
+            prnt_improper_nid_entry()
+
+# # This function is clone of above function is bad because of TCO, TRE!
+
+# def get_check_nid():
+#     print("Type All 11 Digits of NID")
+#     str_nid_entry = str(get_chck_positive_numeric())
+
+#     if len(str_nid_entry) == 11:
+#         nid_entry = int(str_nid_entry)
+#         return nid_entry
+#     else:
+#         prnt_improper_nid_entry()
+#         return get_check_nid()
 
 ###############################################################################
 
 def get_chck_nid_root():
-    print("Type First 9 Digits of NID")
+    while True:
+        print("Type First 9 Digits of NID")
 
-    str_nid_root_entry = str(get_chck_positive_numeric())
+        str_nid_root_entry = str(get_chck_positive_numeric())
 
-    if len(str_nid_root_entry) == 9:
-        nid_root_entry = int(str_nid_root_entry)
-        return nid_root_entry
-    else:
-        prnt_improper_nid_root_entry()
-        return get_chck_nid_root()
+        if len(str_nid_root_entry) == 9:
+            nid_root_entry = int(str_nid_root_entry)
+            return nid_root_entry
+        else:
+            prnt_improper_nid_root_entry()
+
+# # This function is clone of above function is bad because of TCO, TRE!
+
+# def get_chck_nid_root():
+#     print("Type First 9 Digits of NID")
+
+#     str_nid_root_entry = str(get_chck_positive_numeric())
+
+#     if len(str_nid_root_entry) == 9:
+#         nid_root_entry = int(str_nid_root_entry)
+#         return nid_root_entry
+#     else:
+#         prnt_improper_nid_root_entry()
+#         return get_chck_nid_root()
 
 ###############################################################################
 
@@ -450,6 +504,8 @@ def gnrt_last_2_digits_of_nid(proper_nid_root):
     # list to string, then string to int for return.
     int_calculated_nid = int(''.join(map(str, digits_for_calc)))
     return int_calculated_nid
+
+###############################################################################
 
 def gnrt_prnt_senior(proper_nid_root_entry, relative_count):
 
@@ -710,7 +766,6 @@ int main(void)
 ###############################################################################
 ## System Operations
 ###############################################################################
-
 
 def compile_and_execute_c_program():
     # r String mix commands with ';'
@@ -1004,4 +1059,19 @@ def main():
 ###############################################################################
 
 if __name__ == "__main__":
-    main()
+    if sys.version_info[0] < 3:
+        # https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nuri%20ACAR
+        python3_ascii_attention = """
+ █████╗ ████████╗████████╗███████╗███╗   ██╗████████╗██╗ ██████╗ ███╗   ██╗██╗
+██╔══██╗╚══██╔══╝╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝██║██╔═══██╗████╗  ██║██║
+███████║   ██║      ██║   █████╗  ██╔██╗ ██║   ██║   ██║██║   ██║██╔██╗ ██║██║
+██╔══██║   ██║      ██║   ██╔══╝  ██║╚██╗██║   ██║   ██║██║   ██║██║╚██╗██║╚═╝
+██║  ██║   ██║      ██║   ███████╗██║ ╚████║   ██║   ██║╚██████╔╝██║ ╚████║██╗
+╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝
+
+Run with Python3! See you soon...
+"""
+        clear_screen()
+        print(python3_ascii_attention)
+    else:
+        main()
