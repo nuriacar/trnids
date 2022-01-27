@@ -223,25 +223,25 @@ function prnt_senior_junior_both_heading(proper_nid_root_entry, header_option)
     valid_nid = gnrt_last_2_digits_of_nid(proper_nid_root_entry)
 
     if header_option == 1
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\n\n[ Seniors ]\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\n\n[ Seniors ]\n\n"
         wrt_data_history(data_to_history_file)
 
         println("[ 1. Seniors ]")
         prnt_seperator()
     elseif header_option == 2
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\n\n[ Juniors ]\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\n\n[ Juniors ]\n\n"
         wrt_data_history(data_to_history_file)
 
         println("[ 2. Juniors ]")
         prnt_seperator()
     elseif header_option == 3
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\n\n[ Seniors & Juniors ]\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\n\n[ Seniors & Juniors ]\n\n"
         wrt_data_history(data_to_history_file)
 
         println("[ 3. Seniors & Juniors ]")
         prnt_seperator()
     else
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\n\n[ Seniors & Juniors ]\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\n\n[ Seniors & Juniors ]\n\n"
         wrt_data_history(data_to_history_file)
 
         println("[ 3. Seniors & Juniors ]")
@@ -315,7 +315,7 @@ end
 
 function wrt_data_history(data)
     open("trnids_history", "a") do history_file
-        write(io, data)
+        write(history_file, data)
     end
 end
 
@@ -425,16 +425,16 @@ function chck_nid_validity(proper_nid_entry)
     valid_nid = gnrt_last_2_digits_of_nid(proper_nid_entry_root)
 
     if proper_nid_entry == valid_nid
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\nNID Valid!\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\nNID Valid!\n\n"
         wrt_data_history(data_to_history_file)
 
         prnt_nid_is_valid()
     else
-        data_to_history_file = "$valid_nid <<<<< $(get_date_time())\n         ^^---- + The valid NID is this! [Wrong Entry]\n\n"
+        data_to_history_file = "$(valid_nid) <<<<< $(get_date_time())\n         ^^---- + The valid NID is this! [Wrong Entry]\n\n"
         wrt_data_history(data_to_history_file)
 
         prnt_nid_is_not_valid()
-        println("\n$valid_nid")
+        println("\n$(valid_nid)")
         prnt_valid_nid_is_this()
     end
 end
@@ -506,6 +506,138 @@ function gnrt_last_2_digits_of_nid(proper_nid_root)
     # Array to string, then string to int for return.
     int_calculated_nid = parse(Int, join(digits_for_calc))
     return int_calculated_nid
+end
+
+###############################################################################
+
+function gnrt_prnt_senior(proper_nid_root_entry, relative_count)
+    # Relative factor number is: 29999
+    senior_nid_root = (proper_nid_root_entry + (relative_count ^ 29999))
+
+    inrange_senior_nid_root = senior_nid_root
+
+    # If senior nid root < 100000000 or > 999999999
+    # calculations going to wrong couse of nid system root range.
+    # NID root must be 9 digits.
+
+    # This is the fix:
+    if senior_nid_root > 1000000000 # NID root must be 9 digits.
+        inrange_senior_nid_root = (100000000 + mod(senior_nid_root, 1000000000))
+    end
+
+    # Do relative_count times...
+    for n in 1:relative_count
+        # Assigns new generated senior nid root for last two generation.
+        calculated_senior_nid = gnrt_last_2_digits_of_nid(inrange_senior_nid_root)
+
+        data_to_history_file_and_print = "$(lpad(string(relative_count - n), 3, " ")). $(calculated_senior_nid)\n"
+        wrt_data_history(data_to_history_file_and_print)
+        print(data_to_history_file_and_print) # Also prints formatted string to screen.
+
+        # Assigns inrange_senior_nid_root to next younger senior
+        inrange_senior_nid_root = (inrange_senior_nid_root - 29999)
+
+        # If senior nid root < 100000000 or > 999999999
+        # calculations going to wrong couse of nid system root range.
+        # NID root must be 9 digits.
+        
+        # This is the fix.
+        # NID root must be 9 digits.
+
+        if inrange_senior_nid_root > 1000000000
+            inrange_senior_nid_root = (100000000 + mod(inrange_senior_nid_root, 1000000000))
+        end
+    end
+
+    wrt_data_history("\n")
+end
+
+###############################################################################
+
+function gnrt_prnt_base_person(proper_nid_root_entry)
+    data_to_history_file = "===> $(gnrt_last_2_digits_of_nid(proper_nid_root_entry))\n\n"
+    wrt_data_history(data_to_history_file)
+
+    println("===> $(gnrt_last_2_digits_of_nid(proper_nid_root_entry))")
+end
+
+###############################################################################
+
+function gnrt_prnt_junior(proper_nid_root_entry, relative_count)
+    # Relative factor number is: 29999
+    junior_nid_root = (proper_nid_root_entry - 29999)
+
+    inrange_junior_nid_root = junior_nid_root
+    
+    # If junior nid root < 100000000 or > 999999999
+    # calculations going to wrong couse of nid system root range.
+    # NID root must be 9 digits.
+
+    # This is the fix:
+    if junior_nid_root < 100000000 # NID root must be 9 digits.
+        inrange_junior_nid_root = (junior_nid_root + 900000000)
+    end
+
+    # Do relative_count times...
+    for n in 1:relative_count
+        # Assigns new generated junior nid root for last two generation.
+        calculated_junior_nid = gnrt_last_2_digits_of_nid(inrange_junior_nid_root)
+
+        data_to_history_file_and_print = "$(lpad(string(n + 1), 3, " ")). $(calculated_junior_nid)\n"
+        wrt_data_history(data_to_history_file_and_print)
+        print(data_to_history_file_and_print) # Also prints formatted string to screen.
+
+        # Assigns inrange_junior_nid_root to next younger junior
+        inrange_junior_nid_root = (inrange_junior_nid_root - 29999)
+        
+        # If junior nid root < 100000000 or > 999999999
+        # calculations going to wrong couse of nid system root range.
+        # NID root must be 9 digits.
+        
+        # This is the fix.
+        # NID root must be 9 digits.
+        if inrange_junior_nid_root < 100000000
+            inrange_junior_nid_root = (inrange_junior_nid_root + 900000000)
+        end
+    end
+
+    wrt_data_history("\n")
+end
+
+###############################################################################
+
+function gnrt_nidspace_julia()
+    percent = 1
+    
+    # 999999999 - 100000000 = 899999999
+    # 899999999 / 100 ~= 8999999
+    # 8999999 ==> percentage trigger
+
+    percentage_trigger = 108999999
+
+    prnt_newline()
+    println("Julia Generator is running...\n")
+
+    for nid_root in 100000000:999999999
+        if nid_root == percentage_trigger
+            println("[ TCKNO : NID ] Done! ==> ... % $(percent)")
+
+            percent += 1
+            percentage_trigger += 8999999
+        end
+
+        generated_nid = gnrt_last_2_digits_of_nid(nid_root)
+
+        # Adds new line esc. seq. char
+        edited_generated_nid_str = "$(generated_nid)\n"
+
+        # Because of with sentence, no necessary to use file.close("file_name").
+        # Julia closes the file automatically after operation for us.
+
+        open("trnids.txt", "a") do tckno_file
+            write(tckno_file, edited_generated_nid_str)
+        end
+    end
 end
 
 ###############################################################################

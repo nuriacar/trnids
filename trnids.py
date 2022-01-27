@@ -522,7 +522,7 @@ def gnrt_prnt_senior(proper_nid_root_entry, relative_count):
     # This is the fix:
     if senior_nid_root > 1000000000: # NID root must be 9 digits.
         inrange_senior_nid_root = \
-            ((100000000 + (senior_nid_root % 1000000000)))
+            (100000000 + (senior_nid_root % 1000000000))
     
     # Do relative_count times...
     for n in range(0, relative_count):
@@ -548,7 +548,7 @@ def gnrt_prnt_senior(proper_nid_root_entry, relative_count):
         # NID root must be 9 digits.
         if inrange_senior_nid_root > 1000000000:
             inrange_senior_nid_root = \
-                ((100000000 + (inrange_senior_nid_root % 1000000000)))
+                (100000000 + (inrange_senior_nid_root % 1000000000))
     
     wrt_data_history("\n")
 
@@ -569,7 +569,7 @@ def gnrt_prnt_base_person(proper_nid_root_entry):
 def gnrt_prnt_junior(proper_nid_root_entry, relative_count):
 
     # Relative factor number is: 29999
-    junior_nid_root = (proper_nid_root_entry - 29999 )
+    junior_nid_root = (proper_nid_root_entry - 29999)
 
     inrange_junior_nid_root = junior_nid_root
     
@@ -605,7 +605,7 @@ def gnrt_prnt_junior(proper_nid_root_entry, relative_count):
         # NID root must be 9 digits.
         if inrange_junior_nid_root < 100000000:
             inrange_junior_nid_root = \
-                (inrange_junior_nid_root + 900000000 )
+                (inrange_junior_nid_root + 900000000)
 
     wrt_data_history("\n")
 
@@ -637,7 +637,7 @@ def gnrt_nidspace_python():
         edited_generated_nid_str = "{}\n".format(generated_nid)
 
         # Because of with sentence, no necessary to use file.close("file_name").
-        # Python closes the file automatically after operation for us.        
+        # Python closes the file automatically after operation for us.
         with open("trnids.txt", "a") as tckno_file:
             tckno_file.writelines(edited_generated_nid_str)
 
