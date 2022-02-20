@@ -646,7 +646,7 @@ def gnrt_nidspace_python():
 def gnrt_c_source_file():
 
     # Attention! Code file including escape characters. 
-    # sSo, must use r strings.
+    # So, must use r strings.
 
     c_code = r"""/* compile: gcc -Wall filename.c -o filename.exe */
 /* run: ./filename.exe */
@@ -770,13 +770,12 @@ int main(void)
 def compile_and_execute_c_program():
     # r String mix commands with ';'
     
-    # commands = """
+    # commands
     # gcc trnids_generator.c -o trnids_generator.exe;
     # ./trnids_generator.exe;
-    # """
+
     
-    compile_command = \
-        "gcc trnids_generator.c -o trnids_generator.exe"
+    compile_command = "gcc trnids_generator.c -o trnids_generator.exe"
     
     execute_command = "./trnids_generator.exe"
 
@@ -785,40 +784,30 @@ def compile_and_execute_c_program():
     subprocess.check_call(execute_command, shell = True)
 
 # ###############################################################################
-# # Cleaner, Zipper, Archiver
+# # Cleaner, Archiver
 
-# def fnZipperAndArchiver():
-#     # r String mix commands with ';'
+# def archiver():
 
-#     # commands = r"""
-#     # mkdir c executable zip;
-#     # mv *.c ./c; mv *.exe ./executable;
-#     # tar -cv --lzma -f trnids.txt.lzma trnids.txt;
-#     # mv *.lzma ./zip
-#     # """
-#     # exctractor: tar --lzma -xvpf $i.txt.lzma
-
-#     # seperated commands:
-#     mkdir_command = "mkdir c executable zip"
+#     mkdir_command = "mkdir c executable archive"
 #     mv_c_exe_command = "mv *.c ./c; mv *.exe ./executable"
-#     tar_command = "tar -cv -lzma -f trnids.txt.lzma trnids.txt"
-#     mv_lzma_command = "mv *.lzma ./zip"
+#     archiver_command = "tar -cv -lzma -f trnids.txt.lzma trnids.txt"
+#     mv_lzma_command = "mv *.lzma ./archive"
 
 #     subprocess.check_call(mkdir_command, shell = True)
 
 #     subprocess.check_call(mv_c_exe_command, shell = True)
 
-#     subprocess.check_call(tar_command, shell = True)
+#     subprocess.check_call(archiver_command, shell = True)
 
 #     subprocess.check_call(mv_lzma_command, shell = True)
 
 # ###############################################################################
-# # Unzipper
+# # Unarchiver
 
-# def fnUnzipper():
-#     unzipper_command = "tar --lzma -xvpf ./zip/trnids.txt.lzma"
+# def unarchiver():
+#     unarchiver_command = "tar --lzma -xvpf ./archive/trnids.txt.lzma"
 
-#     subprocess.check_call(unzipper_command, shell = True)
+#     subprocess.check_call(unarchiver_command, shell = True)
 
 ###############################################################################
 ###############################################################################
@@ -911,8 +900,7 @@ def ctrl_gnrt_prnt_random_valid_nid():
 
     prnt_newline()
 
-    data_to_history_file = \
-        "[ Random  ] <<<<< " + get_date_time() + "\n\n"
+    data_to_history_file = "[ Random  ] <<<<< " + get_date_time() + "\n\n"
     wrt_data_history(data_to_history_file)
 
     for i in range(random_nid_count):
@@ -926,7 +914,7 @@ def ctrl_gnrt_prnt_random_valid_nid():
         for i in range(1, 9):
             int_lst_random_valid_nid_root[i] = gnrt_random_number("normal")
         
-        # int_array to int conversion.
+        # int array to int conversion.
         int_random_valid_nid_root = \
             int("".join(map(str, int_lst_random_valid_nid_root[0:9])))
 
@@ -982,7 +970,6 @@ run     : ./trnids_generator.exe
             prnt_exit_submenu()
         else:
             prnt_out_of_option()
-
     elif os.name == "posix":
         if nidspace_gen_menu_selection == 1: # Python generation on Posix
             gnrt_nidspace_python()
@@ -1003,11 +990,19 @@ run     : ./trnids_generator.exe
 ###############################################################################
 
 def get_date_time():
-    now = datetime.datetime.now()
-    # H:M:S, dd/mm/YY
-    dt_string = now.strftime("%H:%M:%S, %A, %d/%m/%Y")
-    return dt_string
+    # H:M:S, Week day, dd/mm/YY
+    return datetime.datetime.now().strftime("%H:%M:%S, %A, %d/%m/%Y")
 
+    # # clean
+    # now = datetime.datetime.now()
+    # # H:M:S, Week day, dd/mm/YY
+    # dt_string = now.strftime("%H:%M:%S, %A, %d/%m/%Y")
+    # return dt_string
+
+###############################################################################
+###############################################################################
+###############################################################################
+## Main
 ###############################################################################
 
 def main():
@@ -1020,8 +1015,8 @@ def main():
     try:
         while True:
             main_menu()
-            while_breaker = swtch_main_menu_option() # 99 Menu Exit.
-            if while_breaker == False:
+            while_breaker = swtch_main_menu_option()
+            if while_breaker == False: # 99 Menu Exit.
                 break
     except KeyboardInterrupt: # If ctrl + c pressed while code is running...
         prnt_newline()
@@ -1035,7 +1030,7 @@ def main():
         prnt_newline()
     
     ##########
-    # Gets duration time from time 0 till now.
+    # Gets duration time from start_time till now.
     duration = time.time() - start_time # Returns float. So convert to int.
     
     hours = int(duration / 3600)
@@ -1053,7 +1048,6 @@ def main():
     else:
         print("[ Done! ] ====> {0} s."\
             .format(seconds))
-
     ##########
 
 ###############################################################################

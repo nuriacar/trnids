@@ -4,10 +4,19 @@
 ## TRNIDS: TR National Identifier Suite
 ###############################################################################
 
+# Python version of program has a few imported packages like below:
 
+# import datetime
+# import os
+# import random
+# import subprocess
+# import sys
+# import time
 
+# But in Julia version, these packages packed in Julia's Base. Because of that
+# there are any imported packages. Voila!
 
-
+import Dates
 
 ###############################################################################
 ###############################################################################
@@ -55,49 +64,49 @@ function swtch_main_menu_option() # Julia has not switch case.
 
     if selected_option == 99
         clear_screen()
-        print("[ 99. Exit ]")
+        println("[ 99. Exit ]")
         prnt_seperator()
         prnt_terminated()
         return false # while loop breaker in main.
     elseif selected_option == 1
         clear_screen()
-        print("[ 1. Check NID Validation ]")
+        println("[ 1. Check NID Validation ]")
         prnt_seperator()
         ctrl_nid_validation()
         prnt_hit_enter_to_continue()
     elseif selected_option == 2
         clear_screen()
-        print("[ 2. Generate Last Two Digits ]")
+        println("[ 2. Generate Last Two Digits ]")
         prnt_seperator()
         ctrl_nid_root_to_nid_generation()
         prnt_hit_enter_to_continue()
     elseif selected_option == 3
         clear_screen()
-        print("[ 3. NID Whois ]")
+        println("[ 3. NID Whois ]")
         prnt_seperator()
         ctrl_nid_whois()
         prnt_hit_enter_to_continue()
     elseif selected_option == 4
         clear_screen()
-        print("[ 4. Get Possible Relatives ]")
+        println("[ 4. Get Possible Relatives ]")
         prnt_seperator()
         ctrl_possible_relatives_generation()
         prnt_hit_enter_to_continue()
     elseif selected_option == 5
         clear_screen()
-        print("[ 5. Generate Random Valid NID ]")
+        println("[ 5. Generate Random Valid NID ]")
         prnt_seperator()
         ctrl_gnrt_prnt_random_valid_nid()
         prnt_hit_enter_to_continue()
     elseif selected_option == 6
         clear_screen()
-        print("[ 6. Generate All Possible NID's ]")
+        println("[ 6. Generate All Possible NID's ]")
         prnt_seperator()
         ctrl_nidspace_generation()
         prnt_hit_enter_to_continue()
     elseif selected_option == 98
         clear_screen()
-        print("[ 98. About & Source Code Repository & Version History ]")
+        println("[ 98. About & Source Code Repository & Version History ]")
         prnt_seperator()
         prnt_about_source_history()
         prnt_hit_enter_to_continue()
@@ -134,7 +143,8 @@ end
 ###############################################################################
 
 function prnt_hit_enter_to_continue()
-    input("\nHit 'Enter' to continue to menu!")
+    print("\nHit 'Enter' to continue to menu!")
+    readline()
     clear_screen()
 end
 
@@ -147,7 +157,7 @@ end
 ###############################################################################
 
 function prnt_terminated()
-    println("\nTerminated!\n") # Double newline! First one is in println() fn!
+    println("Terminated!\n") # Double newline! First one is in println() fn!
 end
 
 ###############################################################################
@@ -642,16 +652,421 @@ end
 
 ###############################################################################
 
-function main()
-    while true
-        main_menu()
+function gnrt_c_source_file()
+    # Attention! Code file including escape characters. 
+    # So, must use raw strings.
 
-        if swtch_main_menu_option() == false # 99 Menu Exit.
-            break
+    c_code = raw"""/* compile: gcc -Wall filename.c -o filename.exe */
+/* run: ./filename.exe */
+
+#include <stdio.h>
+#include <stdlib.h> /* abs() */
+#include <time.h>
+
+int main(void)
+{
+    clock_t timeStart = clock(); /* execution time calculation */
+
+    printf("[ TCKNO : NID ] All space generating in \
+'./trnids.txt' file ...\n\n");
+    
+    static char szWriteFile[10];
+    sprintf(szWriteFile, "trnids.txt");
+    FILE *fpWriteFile = fopen(szWriteFile, "a");
+    
+    int percent = 1;
+    /* 
+    999999999 - 100000000 = 899999999
+    899999999 / 100 ~= 8999999
+    8999999 ==> percentage trigger
+    */
+    int percentage_trigger = 108999999;
+    
+    for(int nid_root = 100000000; nid_root <= 999999999; nid_root++)
+    {
+        if (nid_root == percentage_trigger)
+        {
+            printf("[ TCKNO : NID ] Done! ==> ... %% %d\n", percent);
+            
+            percent++;
+            percentage_trigger += 8999999;
+        }
+        
+        int nid_root_copy = nid_root; /* for safety */
+
+        int valid_nid[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        /* number digits to array */
+        for(int i = 8; i >= 0; i--)
+        {
+            valid_nid[i] = nid_root_copy % 10;
+            nid_root_copy = nid_root_copy / 10;
+        }
+
+        int odd_digits_sum = 0;
+        int even_digits_sum = 0;
+
+        odd_digits_sum = valid_nid[0] + valid_nid[2] 
+                        + valid_nid[4] + valid_nid[6] + valid_nid[8];
+        
+        even_digits_sum = valid_nid[1] 
+                        + valid_nid[3] + valid_nid[5] + valid_nid[7];
+
+        valid_nid[9] = (abs( (odd_digits_sum * 7) - even_digits_sum )) % 10;
+        
+        valid_nid[10] = ( odd_digits_sum + even_digits_sum 
+                            + valid_nid[9] ) % 10;
+        
+        /* write all elements of array one by one to file */
+        for(int v = 0; v < 11; v++)
+        {
+            fprintf(fpWriteFile, "%d", valid_nid[v]);
+        }
+
+        fprintf(fpWriteFile, "\n"); /* to new line */
+    }
+
+    fclose(fpWriteFile);
+
+    printf("\n");
+
+    /* lets check the spent time */
+
+    clock_t timeEnd = clock();
+    double timeSpent = (double)(timeEnd - timeStart) / CLOCKS_PER_SEC;
+
+    int int_time_spent = timeSpent;
+
+    int hours = int_time_spent / 3600;
+    int minutes = (int_time_spent / 60) % 60;
+    int seconds = int_time_spent % 60;
+
+    if ( hours > 0 )
+    {
+        printf("[ TCKNO : NID ] Done! ==> ... in %d h. %d m. %d s.\n", 
+        hours, minutes, seconds);
+    }
+    else if ( minutes > 0 )
+    {
+        printf("[ TCKNO : NID ] Done! ==> ... in %d m. %d s.\n", 
+        minutes, seconds);
+    }
+    else
+    {
+        printf("[ TCKNO : NID ] Done! ==> ... in %d s.\n", 
+        seconds);
+    }
+
+    //printf("[ TCKNO : NID ] Done! ==> ... in %.3f s.\n", timeSpent);
+
+    return 0;
+}
+
+"""
+
+    # With lines below, Julia closes the file automatically after operation for us.
+    open("trnids_generator.c", "w") do c_file
+        write(c_file, c_code)
+    end
+end
+
+###############################################################################
+###############################################################################
+###############################################################################
+## System Operations
+###############################################################################
+
+function compile_and_execute_c_program()
+
+    compile_command = `gcc trnids_generator.c -o trnids_generator.exe`
+    
+    execute_command = `./trnids_generator.exe`
+
+    run(`$compile_command`);
+    run(`$execute_command`);
+end
+
+###############################################################################
+
+# function archiver()
+
+#     mkdir_command = `mkdir c executable archive`
+#     mv_c_exe_command = `mv *.c ./c; mv *.exe ./executable`
+#     archiver_command = `tar -cv -lzma -f trnids.txt.lzma trnids.txt`
+#     mv_lzma_command = `mv *.lzma ./archive`
+
+#     run(`$mkdir_command`);
+#     run(`$mv_c_exe_command`);
+#     run(`$archiver_command`);
+#     run(`$mv_lzma_command`);
+# end
+
+###############################################################################
+
+# function unarchiver()
+#     unarchiver_command = `tar --lzma -xvpf ./archive/trnids.txt.lzma`
+
+#     run(`$unarchiver_command`);
+# ends
+
+###############################################################################
+###############################################################################
+###############################################################################
+## Controllers
+###############################################################################
+
+function ctrl_nid_validation()
+    proper_nid_entry = get_check_nid()
+    chck_nid_validity(proper_nid_entry)
+
+    # chck_nid_validity(get_check_nid())
+end
+
+###############################################################################
+
+function ctrl_nid_root_to_nid_generation()
+    proper_nid_root_entry = get_chck_nid_root()
+
+    calculated_nid = gnrt_last_2_digits_of_nid(proper_nid_root_entry)
+
+    data_to_history_file = "$(calculated_nid) <<<<< $(get_date_time())\n         ^^---- + The valid NID is this!\n\n"
+    wrt_data_history(data_to_history_file)
+
+    println("\n$(calculated_nid)")
+
+    prnt_valid_nid_is_this()
+end
+
+###############################################################################
+
+function ctrl_nid_whois()
+    prnt_developing_in_progress()
+end
+
+###############################################################################
+
+function ctrl_possible_relatives_generation()
+    proper_nid_root_entry = get_chck_nid_root() # Gets valid NID root.
+
+    println("\nHow many relatives want you get?")
+    relative_count = get_chck_positive_numeric()
+
+    relative_type_selection_menu = """1. Senior
+2. Junior
+3. Senior and Junior
+
+Select a type ..."""
+
+    println("\n$(relative_type_selection_menu)")
+    selected_relative_type = get_chck_positive_numeric()
+
+    if selected_relative_type == 1 # Senior
+        clear_screen()
+        prnt_senior_junior_both_heading(proper_nid_root_entry, 1)
+        prnt_newline()
+        gnrt_prnt_senior(proper_nid_root_entry, relative_count)
+        prnt_newline()
+        gnrt_prnt_base_person(proper_nid_root_entry)
+    elseif selected_relative_type == 2 # Junior
+        clear_screen()
+        prnt_senior_junior_both_heading(proper_nid_root_entry, 2)
+        prnt_newline()
+        gnrt_prnt_base_person(proper_nid_root_entry)
+        prnt_newline()
+        gnrt_prnt_junior(proper_nid_root_entry, relative_count)
+    elseif selected_relative_type == 3 # Senior and Junior
+        clear_screen()
+        prnt_senior_junior_both_heading(proper_nid_root_entry, 3)
+        prnt_newline()
+        gnrt_prnt_senior(proper_nid_root_entry, relative_count)
+        prnt_newline()
+        gnrt_prnt_base_person(proper_nid_root_entry)
+        prnt_newline()
+        gnrt_prnt_junior(proper_nid_root_entry, relative_count)
+    else # If entry out of 1,2 or 3; Senior and Junior default.
+        clear_screen()
+        prnt_senior_junior_both_heading(proper_nid_root_entry, 3)
+        prnt_default_option_assigned()
+        prnt_newline()
+        gnrt_prnt_senior(proper_nid_root_entry, relative_count)
+        prnt_newline()
+        gnrt_prnt_base_person(proper_nid_root_entry)
+        prnt_newline()
+        gnrt_prnt_junior(proper_nid_root_entry, relative_count)
+    end
+end
+
+###############################################################################
+
+function ctrl_gnrt_prnt_random_valid_nid()
+    println("How many random NIDs want you get?")
+    random_nid_count = get_chck_positive_numeric()
+
+    prnt_newline()
+
+    data_to_history_file = "[ Random  ] <<<<< " * get_date_time() * "\n\n"
+    wrt_data_history(data_to_history_file)
+
+    for i in 1:random_nid_count
+        # NID root has only 9 digits. 10th and 11th digits generates from root.
+        
+        # int_array_random_valid_nid_root = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        int_array_random_valid_nid_root = fill(0, 9)
+
+        # 1st digit must be 1 to 9. (0 not accepted at 1st digit)
+        int_array_random_valid_nid_root[1] = gnrt_random_number("without-zero")
+
+        # 2 to 9 digits can be 0 to 9.
+        for i in 2:9
+            int_array_random_valid_nid_root[i] = gnrt_random_number("normal")
         end
 
-        # readline()
+        # int array to int conversion.
+        # array to string, then string to int.
+        int_random_valid_nid_root = parse(Int, join(int_array_random_valid_nid_root))
+
+        int_random_valid_nid = gnrt_last_2_digits_of_nid(int_random_valid_nid_root)
+
+        wrt_data_history("$(int_random_valid_nid)\n")
+
+        println(int_random_valid_nid)
     end
+
+    wrt_data_history("\n")
+end
+
+###############################################################################
+
+function ctrl_nidspace_generation()
+    nidspace_gen_explanation_and_menu = """This module contains two different mode:
+
++ Julia Generator  [ Default  ] [ Slow ] [ ~55 hrs. on i5-2410M ]
++ C Generator      [ Optional ] [ Fast ] [ ~18 min. on i5-2410M ]
+
+Julia Generator will be run with select option '1' below!
+
+But if your system has any C compiler you can select option '2'.
+
+On NT systems, option '2' generates a C source file which name is
+'trnids_generator.c'. You can compile 'trnids_generator.c' file
+in this directory and generate all possible NIDs with compiled executable.
+
+On *nix systems; option '2' automatically generates, compiles and executes
+files and programs.
+
+e.g.
+
+compile : gcc -Wall trnids_generator.c -o trnids_generator.exe
+run     : ./trnids_generator.exe
+
+1. Run Julia Generator
+2. Run C Generator
+
+9. Exit"""
+
+    println(nidspace_gen_explanation_and_menu)
+    nidspace_gen_menu_selection = get_chck_positive_numeric()
+
+    # There are a few is<OS> function in Sys.
+    if Sys.iswindows()
+        if nidspace_gen_menu_selection == 1 # Julia generation on NT
+            gnrt_nidspace_julia()
+        elseif nidspace_gen_menu_selection == 2 # C generation on NT
+            gnrt_c_source_file()
+            println("\nC source file generated! You can compile by yourself.")
+        elseif nidspace_gen_menu_selection == 9 # Exit
+            prnt_exit_submenu()
+        else
+            prnt_out_of_option()
+        end
+    elseif Sys.islinux() || Sys.isapple()
+        if nidspace_gen_menu_selection == 1 # Julia generation on Linux or Apple
+            gnrt_nidspace_julia()
+        elseif nidspace_gen_menu_selection == 2 # C generation on Linux or Apple
+            gnrt_c_source_file()
+            compile_and_execute_c_program()
+        elseif nidspace_gen_menu_selection == 9 # Exit
+            prnt_exit_submenu()
+        else
+            prnt_out_of_option()
+        end
+    else
+        prnt_out_of_option()
+    end
+end
+
+###############################################################################
+###############################################################################
+###############################################################################
+## Date, Time Getters, Printers
+###############################################################################
+
+function get_date_time()
+    return Dates.format(Dates.now(), "HH:MM:SS, E, dd/mm/yyyy")
+
+    # # clean
+    # now = Dates.now()
+    # # H:M:S, Week day, dd/mm/YY
+    # dt_string = Dates.format(now, "HH:MM:SS, E, dd/mm/yyyy")
+    # return dt_string
+end
+
+###############################################################################
+###############################################################################
+###############################################################################
+## Main
+###############################################################################
+
+function main()
+    ##########
+    # Gets time now for elapsed time calculation.
+    start_time = time() # Returns float.
+    ##########
+
+    try
+        while true
+            main_menu()
+
+            while_breaker = swtch_main_menu_option()
+            
+            if while_breaker == false # 99 Menu Exit.
+                break
+            end
+        end
+    catch e
+        if e isa InterruptException # If ctrl + c pressed while code is running...
+            prnt_newline()
+            prnt_newline()
+            print("Keyboard Interrupt Termination!")
+            prnt_newline()
+        elseif EOFError # Input Error handler.
+            prnt_newline()
+            prnt_newline()
+            print("Input Error Termination!")
+            prnt_newline()
+        else
+            rethrow(e)
+        end
+    end
+
+    ##########
+    # Gets duration time from start_time till now.
+    duration = time() - start_time # Returns float. So convert to int.
+
+    hours = trunc(Int, duration / 3600)
+    minutes = trunc(Int, (duration / 60) % 60)
+    seconds = trunc(Int, duration % 60)
+
+    prnt_seperator()
+
+    if hours > 0
+        println("[ Done! ] ====> $(hours) h. $(minutes) m. $(seconds) s.")
+    elseif minutes > 0
+        println("[ Done! ] ====> $(minutes) m. $(seconds) s.")
+    else
+        println("[ Done! ] ====> $(seconds) s.")
+    end
+    ##########
 end
 
 ###############################################################################
@@ -662,5 +1077,7 @@ if abspath(PROGRAM_FILE) == @__FILE__
     # Assigning a macro value to variable:
     # https://discourse.julialang.org/t/assigning-a-macro-to-a-variable/3773
     # @eval const $(Symbol("@duration")) = $(Symbol("@time"))
-    @time main()
+    
+    # @time main()
+    main()
 end
