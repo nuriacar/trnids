@@ -125,9 +125,9 @@ end
 function clear_screen()
     # There are a few is<OS> function in Sys.
     if Sys.iswindows()
-        Base.run("cls")
+        run(`cmd /c cls`); # Only `cls` returns an error.
     elseif Sys.islinux() || Sys.isapple()
-        Base.run(`clear`)
+        run(`clear`);
     end
 
     # Check this.
@@ -190,7 +190,7 @@ function prnt_improper_nid_root_entry()
     improper_nid_root_entry_alert = """Improper NID Root Entry!
 NID root contains 9 digits! Also, first digit can not be 0!
 Please type like this: 123456789"""
-    println("\n", improper_nid_root_entry_alert)
+    println("\n$(improper_nid_root_entry_alert)\n")
 end
 
 ###############################################################################
@@ -199,7 +199,7 @@ function prnt_improper_nid_entry()
     improper_nid_entry_alert = """Improper NID Entry!
 NID contains 11 digits! Also, first digit can not be 0!
 Please type like this: 12345678901"""
-    println("\n", improper_nid_entry_alert)
+    println("\n$(improper_nid_entry_alert)\n")
 end
 
 ###############################################################################
@@ -213,7 +213,7 @@ end
 function prnt_nid_is_not_valid()
     println("\nNID is NOT Valid!")
 end
-
+ 
 ###############################################################################
 
 function prnt_valid_nid_is_this()
@@ -522,7 +522,7 @@ end
 
 function gnrt_prnt_senior(proper_nid_root_entry, relative_count)
     # Relative factor number is: 29999
-    senior_nid_root = (proper_nid_root_entry + (relative_count ^ 29999))
+    senior_nid_root = (proper_nid_root_entry + (relative_count * 29999))
 
     inrange_senior_nid_root = senior_nid_root
 
@@ -540,7 +540,7 @@ function gnrt_prnt_senior(proper_nid_root_entry, relative_count)
         # Assigns new generated senior nid root for last two generation.
         calculated_senior_nid = gnrt_last_2_digits_of_nid(inrange_senior_nid_root)
 
-        data_to_history_file_and_print = "$(lpad(string(relative_count - n), 3, " ")). $(calculated_senior_nid)\n"
+        data_to_history_file_and_print = "$(lpad(string(relative_count - n + 1), 3, " ")). $(calculated_senior_nid)\n"
         wrt_data_history(data_to_history_file_and_print)
         print(data_to_history_file_and_print) # Also prints formatted string to screen.
 
@@ -593,7 +593,7 @@ function gnrt_prnt_junior(proper_nid_root_entry, relative_count)
         # Assigns new generated junior nid root for last two generation.
         calculated_junior_nid = gnrt_last_2_digits_of_nid(inrange_junior_nid_root)
 
-        data_to_history_file_and_print = "$(lpad(string(n + 1), 3, " ")). $(calculated_junior_nid)\n"
+        data_to_history_file_and_print = "$(lpad(string(n), 3, " ")). $(calculated_junior_nid)\n"
         wrt_data_history(data_to_history_file_and_print)
         print(data_to_history_file_and_print) # Also prints formatted string to screen.
 

@@ -1,3 +1,10 @@
 *_history
 *-history
 .fuse_hidden*
+trnids.txt
+trnids_generator.c
+trnids_generator.exe
+*.o
+c
+executable
+archive
