@@ -58,18 +58,18 @@ varmış ki ilk kurulduğu günlerden üyeymişiz! Enteresan!
 
 ### **Program özellikleri ve kodlara dair...**
 
-Bash, Python 3, Common Lisp ve C ile kodladım. Benim için özel yanı,
+Bash, Python 3, Common Lisp, Julia ve C ile kodladım. Benim için özel yanı,
 bilmediğim ama öğrenmeye merak saldığım tüm progrmalama dillerini bu programı
 yazarak öğrenmeye çalışıyor olmam. Bash ve C ile başlayıp Python 3'e port
 ettim, ardından Python 3'ten Common Lisp'e port ettim, ardından tekrar Python
-3'e aktardım. Bakalım zamanla daha hangi dillere evrilecek.
+3'e, ondan da Julia'ya aktardım. Bakalım zamanla daha hangi dillere evrilecek.
 
-`[ Bash & C ] => [ Python 3 & C ] => [ Common Lisp ] => [ Python 3 & C ]`
+`[ Bash & C ] => [ Python 3 & C ] => [ Common Lisp ] => [ Python 3 & C ] => [ Julia ]`
 
 **Not: Bash, Common Lisp ve Python 3 versiyonları birbirinin aynısı değil!
 Bash ve Common Lisp kodları, Python 3'ün fonksiyonel eşdeğerine güncellenmedi
 fakat yine de bazı fonksiyonlar hariç benzer çalışıyorlar! Birbirine en yakın
-olanlar Common Lisp ve Python 3.**
+olanlar Common Lisp ve Python 3. Şimdilik aynı olanlar ise Python 3 ve Julia.**
 
 Versiyon geçmişi şöyle:
 
@@ -98,6 +98,8 @@ Versiyon geçmişi şöyle:
 20200806135339 : v0.0.9 : Done. Ported to Python3.
 20201206203040 : v0.1.0 : After unsuccessful packaging attemp on Python3;
                           version history added, fn name changed.
+20211231235523 :          Port to Julia from Python3 started.
+20220222222022 :          Port to Julia from Python3 done.
 ```
 
 Menüye göz atacak olursak:
@@ -336,18 +338,20 @@ Interesting!
 
 ### **About program features and codes...**
 
-I coded with Bash, Python 3, Common Lisp and C. The special thing for me is
-that I am trying to learn all programming languages that I do not know but are
-curious to learn by writing this program. I started with Bash and C and ported
-to Python 3, then I ported from Python 3 to Common Lisp, then transferred back
-to Python 3. Let's see which languages will be next.
+I coded with Bash, Python 3, Common Lisp, Julia and C. The special thing for me
+is that I am trying to learn all programming languages that I do not know but
+are curious to learn by writing this program. I started with Bash and C and
+ported to Python 3, then I ported from Python 3 to Common Lisp, then
+transferred back to Python 3, then ported to Julia. Let's see which languages
+will be next.
 
-`[ Bash & C ] => [ Python 3 & C ] => [ Common Lisp ] => [ Python 3 & C ]`
+`[ Bash & C ] => [ Python 3 & C ] => [ Common Lisp ] => [ Python 3 & C ] => [ Julia ]`
 
 **Note: Bash, Common Lisp and Python 3 versions are not the same! Bash and
 Common Lisp codes have not been updated to the functional equivalent of Python
-3, but they still work similarly except for some functions! The closest to
-each other are Common Lisp and Python 3.**
+3, but they still work similarly except for some functions! The closest to each
+other are Common Lisp and Python 3. The same ones for now are Python 3 and
+Julia.**
 
 ```
 ===============================================================================
@@ -374,6 +378,8 @@ each other are Common Lisp and Python 3.**
 20200806135339 : v0.0.9 : Done. Ported to Python3.
 20201206203040 : v0.1.0 : After unsuccessful packaging attemp on Python3;
                           version history added, fn name changed.
+20211231235523 :          Port to Julia from Python3 started.
+20220222222022 :          Port to Julia from Python3 done.
 ```
 
 Let's take a look at the menu:

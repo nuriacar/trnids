@@ -277,6 +277,8 @@ def prnt_about_source_history():
 20200806135339 : v0.0.9 : Done. Ported to Python3.
 20201206203040 : v0.1.0 : After unsuccessful packaging attemp on Python3;
                           version history added, fn name changed.
+20211231235523 :          Port to Julia from Python3 started.
+20220222222022 :          Port to Julia from Python3 done.
 
 [ TODO List ]
 ===============================================================================
@@ -1006,10 +1008,10 @@ def get_date_time():
 ###############################################################################
 
 def main():
-    ##########
+    ###########################################################################
     # Gets time now for elapsed time calculation.
     start_time = time.time() # Returns float.
-    ##########
+    ###########################################################################
     
     # ctrl + c termination and input error handler
     try:
@@ -1029,7 +1031,7 @@ def main():
         print("Input Error Termination!")
         prnt_newline()
     
-    ##########
+    ###########################################################################
     # Gets duration time from start_time till now.
     duration = time.time() - start_time # Returns float. So convert to int.
     
@@ -1048,7 +1050,7 @@ def main():
     else:
         print("[ Done! ] ====> {0} s."\
             .format(seconds))
-    ##########
+    ###########################################################################
 
 ###############################################################################
 

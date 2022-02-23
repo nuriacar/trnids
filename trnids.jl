@@ -296,6 +296,7 @@ function prnt_about_source_history()
 20201206203040 : v0.1.0 : After unsuccessful packaging attemp on Python3;
                           version history added, fn name changed.
 20211231235523 :          Port to Julia from Python3 started.
+20220222222022 :          Port to Julia from Python3 done.
 
 [ TODO List ]
 ===============================================================================
@@ -940,7 +941,7 @@ end
 function ctrl_nidspace_generation()
     nidspace_gen_explanation_and_menu = """This module contains two different mode:
 
-+ Julia Generator  [ Default  ] [ Slow ] [ ~55 hrs. on i5-2410M ]
++ Julia Generator  [ Default  ] [ Slow ] [ ~50 hrs. on i5-2410M ]
 + C Generator      [ Optional ] [ Fast ] [ ~18 min. on i5-2410M ]
 
 Julia Generator will be run with select option '1' below!
@@ -1018,10 +1019,10 @@ end
 ###############################################################################
 
 function main()
-    ##########
+    ###########################################################################
     # Gets time now for elapsed time calculation.
     start_time = time() # Returns float.
-    ##########
+    ###########################################################################
 
     try
         while true
@@ -1034,7 +1035,9 @@ function main()
             end
         end
     catch e
-        if e isa InterruptException # If ctrl + c pressed while code is running...
+        # If ctrl + c pressed while code is running...
+        # ctrl + c does not interrupt. This is an open issue.
+        if e isa InterruptException
             prnt_newline()
             prnt_newline()
             print("Keyboard Interrupt Termination!")
@@ -1049,7 +1052,7 @@ function main()
         end
     end
 
-    ##########
+    ###########################################################################
     # Gets duration time from start_time till now.
     duration = time() - start_time # Returns float. So convert to int.
 
@@ -1066,7 +1069,7 @@ function main()
     else
         println("[ Done! ] ====> $(seconds) s.")
     end
-    ##########
+    ###########################################################################
 end
 
 ###############################################################################
