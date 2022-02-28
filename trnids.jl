@@ -35,7 +35,7 @@ function main_menu()
 
 [ Nuri ACAR ] [ nuriacar.com ]
 
-[ TRNIDS ] [ TR National Identifier Suite ] [ v0.1.0 : 20201206203040 ]
+[ TRNIDS ] [ TR National Identifier Suite ] [ v0.1.0 : 20220222222022 ]
 
 [ Menu ]
 ===============================================================================
